@@ -78,6 +78,41 @@ export const bansosList: BansosItem[] = [
 		featured: false,
 		status: 'active'
 	}
+	,
+	{
+		id: 'deepseek-free-token',
+		title: 'DeepSeek 5M Token Gratis buat Ngoding AI',
+		provider: 'DeepSeek',
+		description: 'DeepSeek ngasih free tier 5M token pas signup buat developer yang mau cobain model AI tanpa kartu kredit. Cocok buat eksperimen chat, reasoning, dan integrasi API sebelum dompet ikut mikir keras.',
+		benefits: [
+			'5M token gratis saat signup',
+			'Tidak perlu kartu kredit',
+			'Akses model deepseek-chat dan deepseek-reasoner',
+			'Context sampai 128K dan output sampai 8K',
+			'Base URL kompatibel API: https://api.deepseek.com/v1'
+		],
+		validity: 'Credit berlaku 30 hari setelah signup',
+		requirements: [
+			'Daftar atau login akun DeepSeek',
+			'Generate API key di dashboard DeepSeek',
+			'Gunakan API key dengan base URL https://api.deepseek.com/v1',
+			'Cek lagi ketentuan resmi karena ini data agregator, bukan verifier'
+		],
+		tips: 'Gas buat prototype dulu, tapi jangan taruh API key di frontend. Developer jelata juga wajib punya secret management.',
+		contributor: {
+			name: 'TokenGratis.id',
+			url: 'https://www.tokengratis.id/provider/deepseek'
+		},
+		ctaLink: 'https://platform.deepseek.com/api_keys',
+		tags: [
+			'AI Credits',
+			'Model API',
+			'No Credit Card',
+			'Free Tier'
+		],
+		featured: true,
+		status: 'active'
+	}
 ];
 
 export const latestBansos = (limit = 3) => bansosList.slice(-limit).reverse();
