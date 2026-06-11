@@ -1,10 +1,15 @@
 # bansosdev CLI
 
-`bansosdev` adalah CLI untuk submit atau menambahkan item ke `bansos.dev`.
+`bansosdev` adalah CLI untuk submit bansos ke situs [bansos.dev](https://bansos.dev).
 
-## Public submit
+## Cara kerja singkat
 
-Mode default aman untuk contributor umum. CLI akan membuat URL GitHub Issue siap-submit.
+- Mode default: `issue`.
+  CLI menghasilkan URL GitHub Issue dengan payload JSON.
+- `--mode direct`: maintainer trigger `workflow_dispatch` ke repo.
+- `--mode json`: cetak payload JSON saja (untuk validasi).
+
+## Contributor (tanpa token)
 
 ```bash
 npx bansosdev add \
@@ -21,9 +26,7 @@ npx bansosdev add \
   --contributor-url "https://example.com"
 ```
 
-## Trusted direct add
-
-Maintainer bisa trigger GitHub Actions agar data langsung ditambahkan ke repo.
+## Maintainer (otomatis ke repo)
 
 ```bash
 BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add \
@@ -39,26 +42,25 @@ BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add \
   --tags "Cloud,Gratisan"
 ```
 
-Token GitHub perlu permission untuk menjalankan workflow pada repo `wauputr4/bansos`.
+Token GitHub untuk `--mode direct`:
 
-## Maintainer setup
+- Repo scope: `wauputr4/bansos`
+- Permission minimum: `Contents: write`, `Workflows: write`.
+- Simpan di environment lokal / CI secret sebagai `BANSOSDEV_GITHUB_TOKEN`.
 
-1. Pastikan workflow `.github/workflows/add-bansos.yml` sudah ada di default branch.
-2. Buka GitHub repo `Settings` -> `Actions` -> `General`.
-3. Pada `Workflow permissions`, pilih `Read and write permissions`.
-4. Simpan pengaturan.
-5. Untuk package baru, publish versi pertama secara manual dulu karena npm Trusted Publisher baru bisa diatur dari package settings setelah package ada.
-6. Jalankan `npm publish --workspace packages/bansosdev-cli --access public --otp KODE_OTP`.
-7. Setelah package `bansosdev` muncul di npm, buka `https://www.npmjs.com/package/bansosdev/access`.
-8. Di npm package settings, buka `Trusted Publisher`.
-9. Pilih `GitHub Actions`.
-10. Isi repository `wauputr4/bansos`.
-11. Isi workflow filename `publish-cli.yml`.
-12. Publish berikutnya bisa lewat workflow `Publish CLI` di tab Actions.
+## Trusted publishing npm
+
+CLI package `bansosdev` terpasang lewat npm trusted publishing.
+
+1. Pastikan workflow `Publish CLI` ada dan berhasil mem-publish versi sebelumnya.
+2. Jika perlu setup pertama:
+   - Publish versi awal manual
+   - Tambah `Trusted Publisher` di npm dengan repository `wauputr4/bansos` dan workflow `publish-cli.yml`
+3. Setelah itu publish otomatis memakai GitHub Actions.
 
 Rujukan:
 
-- npm `bin`: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
 - npm trusted publishing: https://docs.npmjs.com/trusted-publishers/
+- npm `bin` field: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
 - GitHub `workflow_dispatch`: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions
-- GitHub workflow token permissions: https://docs.github.com/actions/reference/authentication-in-a-workflow
+- GitHub workflow permissions: https://docs.github.com/actions/reference/authentication-in-a-workflow

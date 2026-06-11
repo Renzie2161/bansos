@@ -2,48 +2,30 @@
 
 `Bantuan sosial untuk developer jelata`
 
-Website statis untuk kumpulan promo dan program bantuan (`bansos`) yang dirancang khusus buat developer.
+Website statis berisi daftar program bantuan dan promo untuk developer, dirancang SEO-friendly.
 
 ## Fitur
 
-- Landing page dengan konten SEO-friendly.
-- Data bansos terstruktur di `src/lib/data/bansos.ts`.
-- Komponen UI modular untuk shell, kartu bansos, dan highlight terbaru.
-- Filter tag di halaman list.
-- Script CLI untuk menambahkan daftar bansos baru.
-- Open Graph, Twitter Card, JSON-LD, dan meta tags.
-- Open source dan siap kontribusi.
-
-## List bansos awal
-
-### Promo Domain dari Name.com
-
-- Domain yang berlaku: `.DEV` dan `.APP`
-- ✅ Tidak perlu kartu kredit
-- ✅ Promo code: `DEVWEEK26`
-- ✅ Limit 1 domain per akun
-- ✅ Berlaku 8–30 Juni 2026
-- ⚠️ Tips: cuma bisa 1 akun
-
-> `"Developer butuh dollar!"`
+- Landing page + daftar bansos yang mudah dinavigasi.
+- Konten SEO: meta tag, OG/Twitter card, dan JSON-LD.
+- Data terstruktur di [`src/lib/data/bansos.ts`](/Users/wauputra/Documents/02_Bisnis_Pekerjaan/07_Dev/bansos.dev/src/lib/data/bansos.ts).
+- UI modular, filter tag, dan highlight terbaru.
+- Workflow otomatis untuk menambah data lewat CLI.
 
 ## Menjalankan proyek
 
 ```bash
 npm install
-npm run dev
-```
-
-Build production:
-
-```bash
 npm run build
-npm run preview
 ```
 
-## Menambahkan bansos baru
+## Cara menambah bansos
 
-Untuk contributor umum, pakai CLI:
+Ada 3 cara
+
+### 1) Contributor biasa (tanpa token)
+
+Jalankan command berikut, nanti CLI akan membalikin URL issue GitHub siap-submisi:
 
 ```bash
 npx bansosdev add \
@@ -60,15 +42,21 @@ npx bansosdev add \
   --contributor-url "https://example.com"
 ```
 
-Command di atas akan membuat URL GitHub Issue siap-submit.
+### 2) Cek payload (tanpa side effect)
 
-Maintainer bisa menjalankan direct mode:
+```bash
+npx bansosdev add ... --mode json
+```
+
+### 3) Maintainer (langsung ke repo)
 
 ```bash
 BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add ... --mode direct
 ```
 
-Untuk development lokal repo ini, script internal tetap tersedia:
+Catatan: token harus punya akses untuk `contents: write` dan dapat dispatch workflow.
+
+### 4) Lokal (fallback internal)
 
 ```bash
 npm run add:bansos -- \
@@ -83,28 +71,25 @@ npm run add:bansos -- \
   --tags "Cloud,Gratisan"
 ```
 
-Argumen list seperti `--benefits` dan `--requirements` dipisahkan dengan `|`.
+Argumen `--benefits` dan `--requirements` dipisahkan dengan `|`.
 Argumen `--tags` dipisahkan dengan koma.
 
-Detail setup CLI ada di [docs/bansosdev-cli.md](docs/bansosdev-cli.md).
+Detail lengkap CLI lihat [docs/bansosdev-cli.md](docs/bansosdev-cli.md).
 
 ## Kontribusi
 
 - Fork repo ini.
-- Jalankan branch fitur: `git checkout -b feat/nama-fitur`.
-- Tambahkan data dengan `npm run add:bansos -- ...`.
-- Tambahkan/rapikan halaman sesuai guide komunitas, lalu kirim PR.
+- Buat branch: `git checkout -b feat/nama-fitur`.
+- Tambahkan data lewat method di atas.
+- Buat PR.
 
-Lihat detail lengkap kontribusi di `[CONTRIBUTING](.github/CONTRIBUTING.md)`.
+Lihat panduan kontribusi di [CONTRIBUTING](.github/CONTRIBUTING.md).
 
 ## Lisensi
 
 MIT. Lihat [LICENSE](LICENSE).
 
-## Author
+## Kredit
 
-- Wauputra — [`threads.net/@wauputra`](https://www.threads.net/@wauputra)
-
-## Repo
-
+- Wauputra — [threads.net/@wauputra](https://www.threads.net/@wauputra)
 - GitHub: [github.com/wauputr4/bansos](https://github.com/wauputr4/bansos)

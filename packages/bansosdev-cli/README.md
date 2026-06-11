@@ -1,6 +1,10 @@
 # bansosdev
 
-CLI untuk submit daftar bansos ke `bansos.dev`.
+CLI untuk menambahkan entri bansos ke repo [bansos.dev](https://bansos.dev).
+
+## Mode contributor
+
+Default mode adalah `issue`.
 
 ```bash
 npx bansosdev add \
@@ -15,10 +19,18 @@ npx bansosdev add \
   --tags "Cloud,Gratisan"
 ```
 
-Mode default adalah `issue`, yang mencetak URL issue GitHub siap-submit.
+Mode ini akan mencetak URL issue GitHub dengan payload JSON.
 
-Maintainer bisa memakai direct mode:
+## Maintainer mode
 
 ```bash
 BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add ... --mode direct
+```
+
+## Optional
+
+Perlu cek payload dulu sebelum submit:
+
+```bash
+npx bansosdev add ... --mode json
 ```
