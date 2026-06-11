@@ -1,12 +1,11 @@
 # Security Policy
 
-Kami menghargai keamanan proyek. Jika menemukan celah keamanan, mohon jangan posting di issue publik.
+Kami menghargai keamanan proyek ini. Jika menemukan celah keamanan, mohon jangan posting di issue publik.
 
-## Report
+## Cara melaporkan
 
-Silakan kirim email ke `security@bansos.dev` atau buka issue private jika tersedia.
-
-Sertakan minimal:
-- Deskripsi singkat kerentanan.
-- Langkah reproduksi.
-- Dampak yang mungkin muncul.
+- Hubungi: [`threads.net/@wauputra`](https://www.threads.net/@wauputra)
+- Jika memungkinkan sertakan:
+  - Deskripsi singkat kerentanan
+  - Langkah reproduksi
+  - Dampak yang mungkin muncul

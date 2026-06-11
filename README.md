@@ -1,29 +1,60 @@
 # Bansos.dev
 
-Situs kumpulan bantuan sosial untuk developer (`bansos`) dengan semangat gotong royong untuk komunitas developer Indonesia.
+`Bantuan sosial untuk developer jelata`
 
-## Fitur awal
+Website statis untuk kumpulan promo dan program bantuan (`bansos`) yang dirancang khusus buat developer.
 
-- Menampilkan daftar program bantuan sosial (`bansos`) relevan untuk developer.
-- Desain ringan, mudah diupdate, dan ramah SEO.
-- Open Source di GitHub.
+## Fitur
 
-## Open Source
+- Landing page dengan konten SEO-friendly.
+- Data bansos terstruktur di `src/lib/data/bansos.ts`.
+- Open Graph, Twitter Card, JSON-LD, dan meta tags.
+- Open source dan siap kontribusi.
 
-- Repository ini diharapkan dibangun sebagai proyek open source.
-- Kontribusi sangat terbuka lewat issue/pull request.
+## List bansos awal
 
-## Cara kontribusi
+### Promo Domain dari Name.com
 
-1. Fork repository ini.
-2. Buat branch fitur: `git checkout -b feat/nama-fitur`.
-3. Commit perubahan dan buat pull request.
-4. Ikuti checklist pada pull request template.
+- Domain yang berlaku: `.DEV` dan `.APP`
+- ✅ Tidak perlu kartu kredit
+- ✅ Promo code: `DEVWEEK26`
+- ✅ Limit 1 domain per akun
+- ✅ Berlaku 8–30 Juni 2026
+- ⚠️ Tips: cuma bisa 1 akun
+
+> `"Developer butuh dollar!"`
+
+## Menjalankan proyek
+
+```bash
+npm install
+npm run dev
+```
+
+Build production:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Kontribusi
+
+- Fork repo ini.
+- Jalankan branch fitur: `git checkout -b feat/nama-fitur`.
+- Update konten di `src/lib/data/bansos.ts`.
+- Tambahkan/rapikan halaman sesuai guide komunitas, lalu kirim PR.
+
+Lihat detail lengkap kontribusi di `[CONTRIBUTING](.github/CONTRIBUTING.md)`.
 
 ## Lisensi
 
-Proyek ini menggunakan lisensi [MIT](LICENSE).
+MIT. Lihat [LICENSE](LICENSE).
 
-## Link penting
+## Author
+
+- Wauputra — [`threads.net/@wauputra`](https://www.threads.net/@wauputra)
+
+## Repo
 
 - GitHub: [github.com/wauputra/bansos](https://github.com/wauputra/bansos)
