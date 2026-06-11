@@ -1,0 +1,24 @@
+name: Tambah Bansos
+description: Submit promo, credit, diskon, atau program gratisan untuk developer.
+title: "Tambah bansos: "
+labels: ["submission", "bansos"]
+body:
+  - type: textarea
+    id: payload
+    attributes:
+      label: Payload JSON
+      description: Tempel output dari `npx bansosdev add ... --mode json`.
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: Link official sudah dicantumkan.
+          required: true
+        - label: Benefit dan syarat klaim sudah jelas.
+          required: true
+        - label: Saya siap kalau maintainer perlu verifikasi tambahan.
+          required: true

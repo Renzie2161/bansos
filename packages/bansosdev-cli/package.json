@@ -1,0 +1,22 @@
+{
+	"name": "bansosdev",
+	"version": "0.1.0",
+	"description": "CLI untuk submit dan menambahkan daftar bansos.dev.",
+	"type": "module",
+	"bin": {
+		"bansosdev": "./bin/bansosdev.mjs"
+	},
+	"files": [
+		"bin",
+		"README.md"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wauputr4/bansos.git",
+		"directory": "packages/bansosdev-cli"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

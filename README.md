@@ -43,10 +43,10 @@ npm run preview
 
 ## Menambahkan bansos baru
 
-Pakai script supaya format data tetap rapi:
+Untuk contributor umum, pakai CLI:
 
 ```bash
-npm run add:bansos -- \
+npx bansosdev add \
   --id contoh-bansos \
   --title "Contoh Bansos Developer" \
   --provider "Provider" \
@@ -60,8 +60,33 @@ npm run add:bansos -- \
   --contributor-url "https://example.com"
 ```
 
+Command di atas akan membuat URL GitHub Issue siap-submit.
+
+Maintainer bisa menjalankan direct mode:
+
+```bash
+BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add ... --mode direct
+```
+
+Untuk development lokal repo ini, script internal tetap tersedia:
+
+```bash
+npm run add:bansos -- \
+  --id contoh-bansos \
+  --title "Contoh Bansos Developer" \
+  --provider "Provider" \
+  --description "Deskripsi singkat bansos." \
+  --benefits "Benefit satu|Benefit dua" \
+  --validity "Berlaku sampai 30 Juni 2026" \
+  --requirements "Buat akun|Klaim program" \
+  --cta-link "https://example.com" \
+  --tags "Cloud,Gratisan"
+```
+
 Argumen list seperti `--benefits` dan `--requirements` dipisahkan dengan `|`.
 Argumen `--tags` dipisahkan dengan koma.
+
+Detail setup CLI ada di [docs/bansosdev-cli.md](docs/bansosdev-cli.md).
 
 ## Kontribusi
 

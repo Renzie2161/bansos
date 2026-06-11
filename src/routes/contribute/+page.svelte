@@ -13,8 +13,8 @@
 		</p>
 
 		<div class="command-box">
-			<p>Contoh tambah item via script:</p>
-			<code>npm run add:bansos -- --id contoh-bansos --title "Contoh Bansos" --provider "Provider" --description "Deskripsi singkat" --benefits "Benefit 1|Benefit 2" --validity "Berlaku sampai ..." --requirements "Daftar akun|Klaim program" --cta-link "https://example.com" --tags "Cloud,Gratisan"</code>
+			<p>Contoh submit via CLI:</p>
+			<code>npx bansosdev add --id contoh-bansos --title "Contoh Bansos" --provider "Provider" --description "Deskripsi singkat" --benefits "Benefit 1|Benefit 2" --validity "Berlaku sampai ..." --requirements "Daftar akun|Klaim program" --cta-link "https://example.com" --tags "Cloud,Gratisan"</code>
 		</div>
 
 		<div class="actions">
