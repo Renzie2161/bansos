@@ -8,7 +8,7 @@ Website statis berisi daftar program bantuan dan promo untuk developer, dirancan
 
 - Landing page + daftar bansos yang mudah dinavigasi.
 - Konten SEO: meta tag, OG/Twitter card, dan JSON-LD.
-- Data terstruktur di [`src/lib/data/bansos.ts`](/Users/wauputra/Documents/02_Bisnis_Pekerjaan/07_Dev/bansos.dev/src/lib/data/bansos.ts).
+- Data terstruktur di [`src/lib/data/bansos.json`](/Users/wauputra/Documents/02_Bisnis_Pekerjaan/07_Dev/bansos.dev/src/lib/data/bansos.json).
 - UI modular, filter tag, dan highlight terbaru.
 - Workflow otomatis untuk menambah data lewat CLI.
 
@@ -21,9 +21,7 @@ npm run build
 
 ## Cara menambah bansos
 
-Ada 3 cara
-
-### 1) Contributor biasa (tanpa token)
+Contributor cukup pakai CLI, nanti akan muncul URL issue GitHub siap-submisi:
 
 Jalankan command berikut, nanti CLI akan membalikin URL issue GitHub siap-submisi:
 
@@ -42,21 +40,13 @@ npx bansosdev add \
   --contributor-url "https://example.com"
 ```
 
-### 2) Cek payload (tanpa side effect)
+### Cek payload
 
 ```bash
 npx bansosdev add ... --mode json
 ```
 
-### 3) Maintainer (langsung ke repo)
-
-```bash
-BANSOSDEV_GITHUB_TOKEN=ghp_xxx npx bansosdev add ... --mode direct
-```
-
-Catatan: token harus punya akses untuk `contents: write` dan dapat dispatch workflow.
-
-### 4) Lokal (fallback internal)
+### Lokal
 
 ```bash
 npm run add:bansos -- \
@@ -89,7 +79,8 @@ Lihat panduan kontribusi di [CONTRIBUTING](.github/CONTRIBUTING.md).
 
 MIT. Lihat [LICENSE](LICENSE).
 
-## Kredit
+## Contributors
 
-- Wauputra — [threads.net/@wauputra](https://www.threads.net/@wauputra)
-- GitHub: [github.com/wauputr4/bansos](https://github.com/wauputr4/bansos)
+<a href="https://github.com/wauputr4" target="_blank" rel="noopener noreferrer">
+  <img src="https://github.com/wauputr4.png?size=80" width="64" height="64" alt="@wauputr4" />
+</a>
