@@ -1,11 +1,12 @@
 <script lang="ts">
+	import GithubBadge from './GithubBadge.svelte';
 	let { children } = $props();
 
 	const navItems = [
-		{ href: '/', label: 'Home', icon: '⌂' },
-		{ href: '/list', label: 'List', icon: '□' },
-		{ href: '/contribute', label: 'Submit', icon: '+' },
-		{ href: '/about', label: 'About', icon: '?' }
+		{ href: '/', label: 'Beranda', icon: '⌂' },
+		{ href: '/list', label: 'Bansos', icon: '≡' },
+		{ href: '/contribute', label: 'Kontribusi', icon: '+' },
+		{ href: '/about', label: 'Tentang', icon: '?' }
 	];
 </script>
 
@@ -22,9 +23,7 @@
 					<a href={item.href}>{item.label}</a>
 				{/each}
 			</div>
-			<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer" class="repo-link">
-				GitHub
-			</a>
+			<GithubBadge />
 		</nav>
 	</header>
 
@@ -36,7 +35,9 @@
 			<div class="footer-links">
 				<a href="/about">Tentang</a>
 				<a href="/contribute">Kontribusi</a>
-				<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer">Open Source</a>
+				<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer"
+					>Open Source</a
+				>
 			</div>
 		</div>
 	</footer>
@@ -87,8 +88,7 @@
 		gap: 0.25rem;
 	}
 
-	.desktop-nav a,
-	.repo-link {
+	.desktop-nav a {
 		color: var(--text-secondary);
 		font-size: 0.9rem;
 		font-weight: 700;
@@ -96,14 +96,9 @@
 		border-radius: 0.5rem;
 	}
 
-	.desktop-nav a:hover,
-	.repo-link:hover {
+	.desktop-nav a:hover {
 		color: var(--text-primary);
 		background: rgba(255, 255, 255, 0.05);
-	}
-
-	.repo-link {
-		border: 1px solid var(--border-color);
 	}
 
 	.site-footer {
