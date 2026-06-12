@@ -1,11 +1,12 @@
 <script lang="ts">
+	import GithubBadge from './GithubBadge.svelte';
 	let { children } = $props();
 
 	const navItems = [
-		{ href: '/', label: 'Home', icon: '⌂' },
-		{ href: '/list', label: 'List', icon: '□' },
-		{ href: '/contribute', label: 'Submit', icon: '+' },
-		{ href: '/about', label: 'About', icon: '?' }
+		{ href: '/', label: 'Beranda', icon: 'fa-solid fa-house' },
+		{ href: '/list', label: 'Bansos', icon: 'fa-solid fa-list' },
+		{ href: '/contribute', label: 'Kontribusi', icon: 'fa-solid fa-plus' },
+		{ href: '/about', label: 'Tentang', icon: 'fa-solid fa-circle-question' }
 	];
 </script>
 
@@ -22,9 +23,7 @@
 					<a href={item.href}>{item.label}</a>
 				{/each}
 			</div>
-			<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer" class="repo-link">
-				GitHub
-			</a>
+			<GithubBadge />
 		</nav>
 	</header>
 
@@ -36,7 +35,9 @@
 			<div class="footer-links">
 				<a href="/about">Tentang</a>
 				<a href="/contribute">Kontribusi</a>
-				<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer">Open Source</a>
+				<a href="https://github.com/wauputr4/bansos" target="_blank" rel="noopener noreferrer"
+					>Open Source</a
+				>
 			</div>
 		</div>
 	</footer>
@@ -44,7 +45,7 @@
 	<nav class="mobile-bottom-nav" aria-label="Navigasi mobile">
 		{#each navItems as item}
 			<a href={item.href}>
-				<span aria-hidden="true">{item.icon}</span>
+				<span aria-hidden="true"><i class={item.icon}></i></span>
 				{item.label}
 			</a>
 		{/each}
@@ -59,7 +60,8 @@
 
 	.site-header {
 		position: sticky;
-		top: 0;
+		top: -1px;
+		padding-top: 1px;
 		z-index: 50;
 		border-bottom: 1px solid var(--border-color);
 		background: rgba(9, 10, 15, 0.82);
@@ -72,6 +74,7 @@
 		justify-content: space-between;
 		gap: 1rem;
 		min-height: 3.5rem;
+		position: relative;
 	}
 
 	.brand-mark {
@@ -87,8 +90,7 @@
 		gap: 0.25rem;
 	}
 
-	.desktop-nav a,
-	.repo-link {
+	.desktop-nav a {
 		color: var(--text-secondary);
 		font-size: 0.9rem;
 		font-weight: 700;
@@ -96,14 +98,9 @@
 		border-radius: 0.5rem;
 	}
 
-	.desktop-nav a:hover,
-	.repo-link:hover {
+	.desktop-nav a:hover {
 		color: var(--text-primary);
 		background: rgba(255, 255, 255, 0.05);
-	}
-
-	.repo-link {
-		border: 1px solid var(--border-color);
 	}
 
 	.site-footer {
@@ -173,6 +170,9 @@
 
 		.desktop-nav {
 			display: flex;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
 		}
 
 		.mobile-bottom-nav {
