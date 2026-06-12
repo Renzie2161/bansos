@@ -170,8 +170,9 @@ export const bansosList: BansosItem[] = [
 		},
 		ctaLink: 'https://kimchi.dev',
 		tags: [
-			'AI',
+			'AI Credits',
 			'Serverless',
+			'No Credit Card',
 			'Gratisan'
 		],
 		featured: false,
