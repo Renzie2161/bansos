@@ -8,7 +8,7 @@ Website statis berisi daftar program bantuan dan promo untuk developer, dirancan
 
 - Landing page + daftar bansos yang mudah dinavigasi.
 - Konten SEO: meta tag, OG/Twitter card, dan JSON-LD.
-- Data terstruktur di [`src/lib/data/bansos.json`](/Users/wauputra/Documents/02_Bisnis_Pekerjaan/07_Dev/bansos.dev/src/lib/data/bansos.json).
+- Data terstruktur di [`src/lib/data/bansos.json`](src/lib/data/bansos.json).
 - UI modular, filter tag, dan highlight terbaru.
 - Workflow otomatis untuk menambah data lewat CLI.
 
