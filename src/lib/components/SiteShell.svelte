@@ -3,10 +3,10 @@
 	let { children } = $props();
 
 	const navItems = [
-		{ href: '/', label: 'Beranda', icon: '⌂' },
-		{ href: '/list', label: 'Bansos', icon: '≡' },
-		{ href: '/contribute', label: 'Kontribusi', icon: '+' },
-		{ href: '/about', label: 'Tentang', icon: '?' }
+		{ href: '/', label: 'Beranda', icon: 'fa-solid fa-house' },
+		{ href: '/list', label: 'Bansos', icon: 'fa-solid fa-list' },
+		{ href: '/contribute', label: 'Kontribusi', icon: 'fa-solid fa-plus' },
+		{ href: '/about', label: 'Tentang', icon: 'fa-solid fa-circle-question' }
 	];
 </script>
 
@@ -45,7 +45,7 @@
 	<nav class="mobile-bottom-nav" aria-label="Navigasi mobile">
 		{#each navItems as item}
 			<a href={item.href}>
-				<span aria-hidden="true">{item.icon}</span>
+				<span aria-hidden="true"><i class={item.icon}></i></span>
 				{item.label}
 			</a>
 		{/each}

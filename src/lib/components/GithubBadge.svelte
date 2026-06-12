@@ -6,6 +6,14 @@
 	let forks: number | string = $state('-');
 	let version: string = $state('v-');
 
+	function formatNumber(num: number | string): string | number {
+		if (typeof num !== 'number') return num;
+		if (num >= 1000) {
+			return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+		}
+		return num;
+	}
+
 	onMount(() => {
 		fetch(`https://api.github.com/repos/${repo}`)
 			.then((res) => {
@@ -26,7 +34,9 @@
 				return res.json();
 			})
 			.then((data) => {
-				if (data) version = data.tag_name;
+				if (data && data.tag_name) {
+					version = data.tag_name;
+				}
 			})
 			.catch(() => {});
 	});
@@ -39,19 +49,16 @@
 	class="repo-link"
 	aria-label="GitHub Repository"
 >
-	<svg class="git-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-		<path
-			fill="currentColor"
-			d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.738 2.738c.64-.22 1.383-.08 1.9.435.812.811.812 2.132 0 2.943-.812.812-2.132.812-2.943 0-.516-.516-.656-1.259-.441-1.9l-2.736-2.736v6.805c.215.21.357.51.357.814 0 .816-.67 1.477-1.477 1.477-.808 0-1.48-.661-1.48-1.477 0-.322.15-.624.382-.833v-6.8c-.22-.208-.373-.508-.373-.83 0-.469.213-.882.542-1.157L5.147 4.18 .453 8.874c-.603.604-.603 1.585 0 2.189l10.478 10.477c.606.604 1.587.604 2.189 0l10.426-10.426c.604-.604.604-1.584 0-2.184"
-		/>
-	</svg>
+	<i class="fa-brands fa-git-alt git-icon"></i>
 	<div class="repo-info">
 		<span class="repo-name">{repo}</span>
-		<div class="stats-row">
-			<span class="stat">{version}</span>
-			<span class="stat">★ {stars}</span>
-			<span class="stat">⑂ {forks}</span>
-		</div>
+		<ul class="md-source__facts">
+			{#if version !== 'v-'}
+				<li class="md-source__fact"><i class="fa-solid fa-tag"></i> {version}</li>
+			{/if}
+			<li class="md-source__fact"><i class="fa-solid fa-star"></i> {formatNumber(stars)}</li>
+			<li class="md-source__fact"><i class="fa-solid fa-code-branch"></i> {formatNumber(forks)}</li>
+		</ul>
 	</div>
 </a>
 
@@ -60,7 +67,8 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.6rem;
-		border: 1px solid var(--border-color);
+		border: none;
+		background: transparent;
 		color: var(--text-secondary);
 		padding: 0.4rem 0.75rem;
 		border-radius: 0.5rem;
@@ -77,12 +85,13 @@
 
 	.git-icon {
 		flex-shrink: 0;
+		font-size: 1.5rem;
 	}
 
 	.repo-info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: 0.2rem;
 	}
 
 	.repo-name {
@@ -92,20 +101,31 @@
 		color: var(--text-primary);
 	}
 
-	.stats-row {
+	.md-source__facts {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 0.5rem;
 	}
 
-	.stat {
+	.md-source__fact {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 		font-size: 0.75rem;
 		font-weight: 600;
 		color: var(--text-muted);
 		line-height: 1;
 	}
 
-	.repo-link:hover .stat {
+	.md-source__fact i {
+		font-size: 0.7rem;
+		opacity: 0.75;
+	}
+
+	.repo-link:hover .md-source__fact {
 		color: var(--text-secondary);
 	}
 </style>
