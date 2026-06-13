@@ -2,8 +2,7 @@
 	import { getContributorStats, type ContributorSummary } from '$lib/data/bansos';
 
 	const contributors: ContributorSummary[] = getContributorStats();
-	const singleLineExample =
-		'npx bansosdev add --id contoh-bansos --title "Contoh Bansos Developer" --provider "Provider" --validity-type uncertain';
+	const singleLineExample = 'npx bansosdev --help';
 	const multilineExample = [
 		'npx bansosdev add \\',
 		'  --id contoh-bansos \\',
@@ -20,7 +19,7 @@
 		'  --tags "Cloud,Gratisan" \\',
 		'  --status active'
 	].join('\n');
-	let copiedNotice = '';
+	let copiedNotice = $state('');
 
 	const copyToClipboard = async (text: string, label: string) => {
 		try {
@@ -60,7 +59,7 @@
 					<button
 						type="button"
 						class="copy-button"
-						on:click={() => copyToClipboard(singleLineExample, 'Command one-line')}
+						onclick={() => copyToClipboard(singleLineExample, 'Command one-line')}
 					>
 						Copy
 					</button>
@@ -73,7 +72,7 @@
 					<button
 						type="button"
 						class="copy-button"
-						on:click={() => copyToClipboard(multilineExample, 'Command multiline')}
+						onclick={() => copyToClipboard(multilineExample, 'Command multiline')}
 					>
 						Copy
 					</button>

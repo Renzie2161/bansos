@@ -89,7 +89,10 @@
 				}
 			: null
 	);
-	const schemaJson = $derived(schemaData ? JSON.stringify(schemaData) : '');
+	const schemaJson = $derived(
+		schemaData ? JSON.stringify(schemaData).replace(/</g, '\\u003c') : ''
+	);
+	const schemaScriptTag = 'script';
 
 	const recommendedBansos = $derived.by(() => {
 		if (!item) return [];
@@ -121,7 +124,7 @@
 		<meta property="twitter:title" content={seoTitle} />
 		<meta property="twitter:description" content={seoDesc} />
 
-		<svelte:element this="script" type="application/ld+json">{schemaJson}</svelte:element>
+		<svelte:element this={schemaScriptTag} type="application/ld+json">{schemaJson}</svelte:element>
 	{/if}
 </svelte:head>
 

@@ -32,29 +32,35 @@
 	<div class="provider-row">
 		<p class="provider-label">Provider: <strong>{item.provider}</strong></p>
 		{#if item.status !== 'expired'}
-			<span
-				class="validity-text {item.validity.description ? 'has-tooltip' : ''}"
-				role={item.validity.description ? 'button' : undefined}
-				tabindex={item.validity.description ? 0 : undefined}
-				onclick={item.validity.description ? (e) => toggleTooltip(e) : undefined}
-				onkeydown={item.validity.description
-					? (e) => (e.key === 'Enter' || e.key === ' ') && toggleTooltip(e)
-					: undefined}
-				onmouseleave={() => (showTooltip = false)}
-			>
-				{#if item.validity.type === 'forever'}
-					<i class="fa-solid fa-infinity"></i> Selamanya
-				{:else if item.validity.type === 'fixed'}
-					<i class="fa-regular fa-calendar"></i> {item.validity.date}
-				{:else}
-					<i class="fa-solid fa-question"></i> Tidak Tentu
-				{/if}
-				{#if item.validity.description}
+			{#if item.validity.description}
+				<button
+					type="button"
+					class="validity-text has-tooltip"
+					onclick={(e) => toggleTooltip(e)}
+					onmouseleave={() => (showTooltip = false)}
+				>
+					{#if item.validity.type === 'forever'}
+						<i class="fa-solid fa-infinity"></i> Selamanya
+					{:else if item.validity.type === 'fixed'}
+						<i class="fa-regular fa-calendar"></i> {item.validity.date}
+					{:else}
+						<i class="fa-solid fa-question"></i> Tidak Tentu
+					{/if}
 					<span class="tooltip-text" class:show-mobile={showTooltip}
 						>{item.validity.description}</span
 					>
-				{/if}
-			</span>
+				</button>
+			{:else}
+				<span class="validity-text">
+					{#if item.validity.type === 'forever'}
+						<i class="fa-solid fa-infinity"></i> Selamanya
+					{:else if item.validity.type === 'fixed'}
+						<i class="fa-regular fa-calendar"></i> {item.validity.date}
+					{:else}
+						<i class="fa-solid fa-question"></i> Tidak Tentu
+					{/if}
+				</span>
+			{/if}
 		{/if}
 	</div>
 	{#if item.contributor}
@@ -184,7 +190,11 @@
 	}
 
 	.validity-text {
+		border: 0;
+		background: transparent;
+		padding: 0;
 		font-size: 0.85rem;
+		font-family: inherit;
 		color: var(--text-muted);
 		display: inline-flex;
 		align-items: center;
