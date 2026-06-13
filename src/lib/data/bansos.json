@@ -32,6 +32,68 @@
 		"status": "expired"
 	},
 	{
+		"id": "namecheap-vps-hosting",
+		"title": "Namecheap VPS Hosting dengan Harga Mulai 3.88$/Bulan",
+		"provider": "Namecheap",
+		"description": "Paket VPS dari Namecheap dengan harga murah, plan sesuai kebutuhan, dan opsi free trial. Cocok buat yang butuh kontrol server sendiri tanpa ribet.",
+		"benefits": [
+			"Plan VPS mulai dari Spark sampai Hypernova",
+			"Mulai dari 1 CPU, RAM 1GB, SSD 20GB, bandwidth 1000GB",
+			"Pilihan manajemen server serta root access dan kontrol panel",
+			"Tersedia free trial sebelum upgrade ke berlangganan"
+		],
+		"validity": {
+			"type": "uncertain",
+			"description": "Promo dan harga ditampilkan sesuai periode di halaman resmi"
+		},
+		"requirements": [
+			"Buat/masuk akun Namecheap",
+			"Pilih plan VPS sesuai kebutuhan dan sumber daya yang kamu butuhkan",
+			"Lanjutkan checkout dan pilih durasi billing"
+		],
+		"publishedAt": "2026-06-13",
+		"contributor": {
+			"name": "wau",
+			"url": "https://wau.my.id"
+		},
+		"ctaLink": "https://www.namecheap.com/hosting/vps/",
+		"tags": ["VPS", "Hosting", "Server", "Gratis Trial"],
+		"featured": false,
+		"status": "active"
+	},
+	{
+		"id": "idwebhost-domain-gratis-1tahun",
+		"title": "Domain Gratis 1 Tahun di IDwebhost (pakai kupon)",
+		"provider": "IDwebhost",
+		"description": "Klaim domain gratis 1 tahun buat bikin web cepat, cukup pakai kupon saat checkout dan pilih ekstensi yang didukung.",
+		"benefits": [
+			"Domain gratis 1 tahun untuk yang ambil paket sesuai campaign",
+			"Mendukung klaim domain .my.id, .web.id, atau .biz.id",
+			"Kupon `mAts2Mey` jadi jalan masuk utama untuk promo",
+			"Tidak perlu tambahan paket hosting, SSL, maupun email hosting"
+		],
+		"validity": {
+			"type": "uncertain",
+			"description": "Promo dan validitas kupon bisa berubah sesuai campaign saat ini"
+		},
+		"requirements": [
+			"Punya akun di IDwebhost",
+			"Pilih domain gratis yang diinginkan",
+			"Masukkan kupon `mAts2Mey`",
+			"Saat checkout, jangan centang hosting, SSL, dan email hosting sesuai instruksi"
+		],
+		"tips": "Masukkan domain yang diinginkan dulu, lalu isi kupon dan pastikan item hosting/SSL/email hosting tidak dipilih.",
+		"publishedAt": "2026-06-13",
+		"contributor": {
+			"name": "ᴀᴢɪᴢ ʙᴜᴅɪ ꜱᴀᴛʀɪᴏ",
+			"url": "https://lynk.id/azizbudisatrio?utm_source=threads&utm_medium=social&utm_content=link_in_bio"
+		},
+		"ctaLink": "https://idwebhost.com/",
+		"tags": ["Domain", "Promo", "Kupon", "Gratisan"],
+		"featured": false,
+		"status": "active"
+	},
+	{
 		"id": "tokenrouter-model-gateway",
 		"title": "Free Credits TokenRouter buat Jajan Model AI",
 		"provider": "TokenRouter",

@@ -86,6 +86,19 @@ function validateUrl(value, key) {
 	}
 }
 
+function isValidCalendarDate(value) {
+\tif (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+\t\treturn false;
+\t}
+\tconst [year, month, day] = value.split('-').map(Number);
+\tconst parsedDate = new Date(year, month - 1, day);
+\treturn (
+\t\tparsedDate.getFullYear() === year &&
+\t\tparsedDate.getMonth() === month - 1 &&
+\t\tparsedDate.getDate() === day
+\t);
+}
+
 function payloadFromArgs(args) {
 	const validityType = required(args, 'validity-type');
 	if (!['fixed', 'uncertain', 'forever'].includes(validityType)) {
@@ -111,8 +124,8 @@ function payloadFromArgs(args) {
 		validity.description = args['validity-desc'];
 	}
 	const publishedAt = args['published-at'] || new Date().toISOString().slice(0, 10);
-	if (!/^\d{4}-\d{2}-\d{2}$/.test(publishedAt)) {
-		throw new Error('--published-at must be YYYY-MM-DD');
+	if (!isValidCalendarDate(publishedAt)) {
+		throw new Error('--published-at must be a valid YYYY-MM-DD date');
 	}
 
 	const payload = {
