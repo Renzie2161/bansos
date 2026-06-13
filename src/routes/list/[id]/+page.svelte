@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FloatingEmoji from '$lib/components/FloatingEmoji.svelte';
+	import BansosCard from '$lib/components/BansosCard.svelte';
 	import { bansosState, initBansosStore, fetchLatestBansos } from '$lib/stores/bansos.svelte';
 	import { onMount } from 'svelte';
 
@@ -87,6 +88,15 @@
 				}
 			: null
 	);
+
+	const recommendedBansos = $derived.by(() => {
+		if (!item) return [];
+		return bansosState.data
+			.filter((entry) => entry.id !== item.id)
+			.filter((entry) => entry.status === 'active')
+			.slice(-3)
+			.reverse();
+	});
 </script>
 
 <svelte:head>
@@ -292,100 +302,20 @@
 			</div>
 		</article>
 
-		<!-- Anxious Sweating Coffee & Sad Student SVGs side-by-side for fun -->
-		<section class="fun-illustrations container">
-			<div class="glass-card illustration-card">
-				<svg
-					class="anxious-icon"
-					viewBox="0 0 100 100"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						d="M15 30 C15 25 19 21 24 21 H76 C81 21 85 25 85 30 V70 C85 75 81 79 76 79 H24 C19 79 15 75 15 70 Z"
-						fill="var(--bg-secondary)"
-						stroke="var(--color-warning)"
-						stroke-width="4"
-					/>
-					<path
-						d="M55 40 H78 C82 40 85 43 85 47 V57 C85 61 82 64 78 64 H55 Z"
-						fill="#1b1d30"
-						stroke="var(--color-warning)"
-						stroke-width="4"
-					/>
-					<circle cx="70" cy="52" r="4" fill="var(--color-warning)" />
-					<path
-						d="M28 42 Q33 38 38 42 M46 42 Q51 38 56 42"
-						stroke="var(--text-primary)"
-						stroke-width="2.5"
-						stroke-linecap="round"
-						fill="none"
-					/>
-					<circle cx="33" cy="47" r="2.5" fill="var(--text-primary)" />
-					<circle cx="51" cy="47" r="2.5" fill="var(--text-primary)" />
-					<path
-						class="sweat-drop"
-						d="M33 53 C33 56 31.5 58 30 58 C28.5 58 28.5 56 30 53 C31 51 32.5 49 33 47 C33 49 33 51 33 53 Z"
-						fill="#38bdf8"
-					/>
-					<path
-						d="M38 59 Q42 55 46 59"
-						stroke="var(--text-primary)"
-						stroke-width="2.5"
-						stroke-linecap="round"
-						fill="none"
-					/>
-				</svg>
-				<p>Dompet lagi kosong melompong...</p>
-			</div>
-
-			<div class="glass-card illustration-card">
-				<svg
-					class="anxious-icon"
-					viewBox="0 0 100 100"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<rect
-						x="15"
-						y="15"
-						width="70"
-						height="50"
-						rx="8"
-						fill="var(--bg-secondary)"
-						stroke="var(--color-accent)"
-						stroke-width="4"
-					/>
-					<rect x="20" y="20" width="60" height="40" rx="4" fill="#0d0e15" />
-					<path
-						d="M40 65 L35 80 L65 80 L60 65 Z"
-						fill="var(--bg-secondary)"
-						stroke="var(--color-accent)"
-						stroke-width="4"
-					/>
-					<path
-						d="M35 36 L43 39 M65 36 L57 39"
-						stroke="var(--text-primary)"
-						stroke-width="3"
-						stroke-linecap="round"
-					/>
-					<circle cx="38" cy="44" r="3" fill="var(--text-primary)" />
-					<circle cx="62" cy="44" r="3" fill="var(--text-primary)" />
-					<path
-						class="sweat-drop"
-						d="M72 32 C72 35 70 37 68 37 C66 37 66 35 68 32 C69 30 71 28 72 26 C72 28 72 30 72 32 Z"
-						fill="#38bdf8"
-					/>
-					<path
-						d="M44 51 Q48 48 52 51 T60 51"
-						stroke="var(--text-primary)"
-						stroke-width="3"
-						stroke-linecap="round"
-						fill="none"
-					/>
-				</svg>
-				<p>Server production mati, fr fr...</p>
-			</div>
+		<!-- Rekomendasi Bansos Lainnya -->
+		<section class="recommendation-section container">
+			<h2 class="recommendation-title">
+				<i class="fa-solid fa-sparkles"></i> Rekomendasi Lain yang Mungkin Lo Butuhin
+			</h2>
+			{#if recommendedBansos.length > 0}
+				<div class="recommendation-grid">
+					{#each recommendedBansos as recommend}
+						<BansosCard item={recommend} compact={true} />
+					{/each}
+				</div>
+			{:else}
+				<p class="empty-recommendation text-pretty">Belum ada rekomendasi lain saat ini, balik ke list ya.</p>
+			{/if}
 		</section>
 
 		<!-- Floating Particles -->
@@ -696,101 +626,35 @@
 		gap: 0.75rem;
 	}
 
-	/* Illustrations Grid */
-	.fun-illustrations {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.5rem;
-	}
-
-	.illustration-card {
-		text-align: center;
-		padding: 2rem;
+	.recommendation-section {
 		display: flex;
 		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.recommendation-title {
+		color: var(--text-primary);
+		font-size: 1.1rem;
+		font-weight: 700;
+		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
-	.illustration-card p {
-		font-size: 0.9rem;
+	.recommendation-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.empty-recommendation {
+		margin: 0;
 		color: var(--text-secondary);
-		font-style: italic;
-	}
-
-	.illustration-card:hover .anxious-icon {
-		animation: shake 0.4s infinite alternate;
-	}
-
-	.sweat-drop {
-		animation: drip 1.8s infinite ease-in;
-		transform-origin: center;
-	}
-
-	@keyframes pulse {
-		0% {
-			transform: scale(1);
-		}
-		100% {
-			transform: scale(1.15);
-		}
-	}
-
-	@keyframes shake {
-		0% {
-			transform: translate(1px, 1px) rotate(0deg);
-		}
-		10% {
-			transform: translate(-1px, -2px) rotate(-1deg);
-		}
-		20% {
-			transform: translate(-3px, 0px) rotate(1deg);
-		}
-		30% {
-			transform: translate(0px, 2px) rotate(0deg);
-		}
-		40% {
-			transform: translate(1px, -1px) rotate(1deg);
-		}
-		50% {
-			transform: translate(-1px, 2px) rotate(-1deg);
-		}
-		60% {
-			transform: translate(-3px, 1px) rotate(0deg);
-		}
-		70% {
-			transform: translate(2px, 1px) rotate(-1deg);
-		}
-		80% {
-			transform: translate(-1px, -1px) rotate(1deg);
-		}
-		90% {
-			transform: translate(2px, 2px) rotate(0deg);
-		}
-		100% {
-			transform: translate(1px, -2px) rotate(-1deg);
-		}
-	}
-
-	@keyframes drip {
-		0% {
-			transform: translateY(-4px);
-			opacity: 0;
-		}
-		20% {
-			opacity: 1;
-		}
-		80% {
-			opacity: 0.8;
-		}
-		100% {
-			transform: translateY(12px);
-			opacity: 0;
-		}
+		font-size: 0.9rem;
 	}
 
 	@media (min-width: 48rem) {
-		.fun-illustrations {
+		.recommendation-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
