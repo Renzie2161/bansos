@@ -4,6 +4,10 @@
 	const contributors: ContributorSummary[] = getContributorStats();
 	const singleLineExample =
 		'npx bansosdev add --id contoh-bansos --title "Contoh" --provider "Provider" --description "Deskripsi singkat" --benefits "Benefit 1|Benefit 2" --validity-type "uncertain" --validity-desc "Berlaku sampai slot habis" --requirements "Buat akun|Klaim program" --cta-link "https://example.com" --contributor-name "Nama Kamu" --contributor-url "https://example.com" --tags "Cloud,Gratisan" --status active';
+	const agentSkillInstallCommand =
+		'npx skills add wauputr4/skill-bansos --skill bansos-add-entry --agent codex';
+	const agentPromptExample =
+		'Use $bansos-add-entry to research this source and prepare a valid bansos.dev submission: https://example.com';
 	const multilineExample = [
 		'npx bansosdev add \\',
 		'  --id namecom-domain-app \\',
@@ -89,6 +93,52 @@
 			{/if}
 		</div>
 
+		<section class="agent-skill-box">
+			<div class="agent-copy">
+				<p class="eyebrow">AI Agent</p>
+				<h2>Pakai skill khusus biar agent gak halu pas nambah bansos.</h2>
+				<p>
+					Kalau kamu pakai Codex atau agent lain yang support skills, install skill resmi
+					<code>wauputr4/skill-bansos</code>. Skill ini ngajarin agent cara riset sumber, bikin
+					payload valid, dan mengikuti aturan kontribusi bansos.dev.
+				</p>
+			</div>
+			<div class="command-panel">
+				<div class="command-head">
+					<span>Install skill untuk agent:</span>
+					<button
+						type="button"
+						class="copy-button"
+						onclick={() => copyToClipboard(agentSkillInstallCommand, 'Command install skill')}
+					>
+						Copy
+					</button>
+				</div>
+				<pre class="command-inline"><code>{agentSkillInstallCommand}</code></pre>
+			</div>
+			<div class="command-panel">
+				<div class="command-head">
+					<span>Contoh prompt setelah skill terpasang:</span>
+					<button
+						type="button"
+						class="copy-button"
+						onclick={() => copyToClipboard(agentPromptExample, 'Prompt agent')}
+					>
+						Copy
+					</button>
+				</div>
+				<pre class="command-block"><code>{agentPromptExample}</code></pre>
+			</div>
+			<a
+				href="https://www.skills.sh/wauputr4/skill-bansos"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="skill-link"
+			>
+				Lihat skill di skills.sh
+			</a>
+		</section>
+
 		<div class="actions">
 			<a
 				href="https://github.com/wauputr4/bansos"
@@ -161,6 +211,52 @@
 		border-radius: 0.75rem;
 		background: rgba(255, 255, 255, 0.04);
 		padding: 1rem;
+	}
+
+	.agent-skill-box {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--border-color));
+		border-radius: 0.75rem;
+		background:
+			linear-gradient(135deg, rgba(53, 194, 124, 0.12), rgba(255, 255, 255, 0.03)),
+			rgba(255, 255, 255, 0.04);
+		padding: 1rem;
+	}
+
+	.agent-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+	}
+
+	.agent-copy h2 {
+		margin: 0;
+		color: var(--text-primary);
+		font-size: clamp(1.25rem, 3vw, 1.75rem);
+		line-height: 1.15;
+	}
+
+	.agent-copy p {
+		margin: 0;
+	}
+
+	.agent-copy code {
+		color: var(--text-primary);
+		font-weight: 800;
+	}
+
+	.skill-link {
+		width: fit-content;
+		color: var(--color-accent);
+		font-size: 0.9rem;
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.skill-link:hover {
+		text-decoration: underline;
 	}
 
 	.command-block {
