@@ -21,6 +21,12 @@ export interface BansosItem {
 	status: 'active' | 'expired' | 'upcoming';
 }
 
+export interface ContributorSummary {
+	name: string;
+	url: string;
+	count: number;
+}
+
 const DEFAULT_UTM = {
 	source: 'bansos.dev',
 	medium: 'referral',
@@ -66,4 +72,34 @@ export function getBansosById(id: string) {
 
 export function getBansosByTag(tag: string) {
 	return bansosList.filter((item) => item.tags.includes(tag));
+}
+
+function contributorKey(name: string, url: string) {
+	return `${name.trim().toLowerCase()}::${url.trim().toLowerCase()}`;
+}
+
+export function getContributorStats() {
+	const map = new Map<string, ContributorSummary>();
+
+	for (const item of bansosList) {
+		const contributor = item.contributor;
+		if (!contributor?.name || !contributor?.url) continue;
+
+		const key = contributorKey(contributor.name, contributor.url);
+		const current = map.get(key);
+		if (current) {
+			current.count += 1;
+		} else {
+			map.set(key, {
+				name: contributor.name,
+				url: contributor.url,
+				count: 1
+			});
+		}
+	}
+
+	return Array.from(map.values()).sort((a, b) => {
+		if (b.count !== a.count) return b.count - a.count;
+		return a.name.localeCompare(b.name);
+	});
 }

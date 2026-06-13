@@ -1,3 +1,9 @@
+<script lang="ts">
+	import { getContributorStats, type ContributorSummary } from '$lib/data/bansos';
+
+	const contributors: ContributorSummary[] = getContributorStats();
+</script>
+
 <svelte:head>
 	<title>Kontribusi bansos.dev</title>
 	<meta name="description" content="Cara menambahkan daftar bansos developer ke bansos.dev." />
@@ -33,6 +39,28 @@
 			</a>
 			<a href="/list" class="btn-secondary">Lihat Contoh Data</a>
 		</div>
+
+		<section class="contributors-section">
+			<h2 class="section-title">
+				<i class="fa-solid fa-users"></i> Kontributor Terdaftar
+			</h2>
+			{#if contributors.length > 0}
+				<ul class="contributors-list">
+					{#each contributors as contributor}
+						<li class="contributor-card">
+							<div class="contributor-name">
+								<a href={contributor.url} target="_blank" rel="noopener noreferrer">
+									{contributor.name}
+								</a>
+							</div>
+							<span class="contributor-count">{contributor.count} kontribusi</span>
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				<p class="empty-contributor">Belum ada kontributor yang terdeteksi di data.</p>
+			{/if}
+		</section>
 	</section>
 </main>
 
@@ -88,5 +116,69 @@
 		flex-wrap: wrap;
 		gap: 0.75rem;
 		margin-top: 0.5rem;
+	}
+
+	.contributors-section {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-top: 0.75rem;
+	}
+
+	.section-title {
+		color: var(--text-primary);
+		font-size: 1.25rem;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.contributors-list {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	.contributor-card {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--border-color);
+		border-radius: 0.7rem;
+		background: rgba(255, 255, 255, 0.03);
+		color: var(--text-secondary);
+	}
+
+	.contributor-name {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.contributor-name a {
+		color: var(--color-accent);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.contributor-name a:hover {
+		text-decoration: underline;
+	}
+
+	.contributor-count {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.empty-contributor {
+		color: var(--text-secondary);
+		margin: 0;
 	}
 </style>
