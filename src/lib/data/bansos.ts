@@ -75,7 +75,16 @@ export function getBansosByTag(tag: string) {
 }
 
 function contributorKey(name: string, url: string) {
-	return `${name.trim().toLowerCase()}::${url.trim().toLowerCase()}`;
+	return `${name.trim().toLowerCase()}::${normalizeContributorUrl(url)}`;
+}
+
+function normalizeContributorUrl(url: string) {
+	try {
+		const parsed = new URL(url.trim());
+		return `${parsed.origin}${parsed.pathname.replace(/\/+$/, '')}${parsed.search}${parsed.hash}`;
+	} catch {
+		return url.trim().replace(/\/+$/, '');
+	}
 }
 
 export function getContributorStats() {
@@ -91,7 +100,7 @@ export function getContributorStats() {
 			current.count += 1;
 		} else {
 			map.set(key, {
-				name: contributor.name,
+				name: contributor.name.trim().toLowerCase(),
 				url: contributor.url,
 				count: 1
 			});
