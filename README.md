@@ -81,6 +81,6 @@ MIT. Lihat [LICENSE](LICENSE).
 
 ## Contributors
 
-<a href="https://github.com/wauputr4" target="_blank" rel="noopener noreferrer">
-  <img src="https://github.com/wauputr4.png?size=80" width="64" height="64" alt="@wauputr4" />
+<a href="https://github.com/wauputr4/bansos/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wauputr4/bansos" alt="Kontributor bansos.dev" />
 </a>
