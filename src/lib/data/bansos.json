@@ -371,7 +371,7 @@
 			"Kredit tambahan hingga $150 per bulan dengan mengikuti program data sharing"
 		],
 		"validity": {
-			"type": "fixed",
+			"type": "uncertain",
 			"description": "Kredit awal $25 kedaluwarsa 30 hari setelah pendaftaran"
 		},
 		"requirements": [
