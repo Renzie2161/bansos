@@ -21,7 +21,38 @@ export interface BansosItem {
 	status: 'active' | 'expired' | 'upcoming';
 }
 
-export const bansosList: BansosItem[] = bansosData as BansosItem[];
+const DEFAULT_UTM = {
+	source: 'bansos.dev',
+	medium: 'referral',
+	campaign: 'bansos'
+};
+
+function appendDefaultUtmParams(url: string) {
+	try {
+		const parsed = new URL(url);
+		if (!parsed.searchParams.has('utm_source')) {
+			parsed.searchParams.set('utm_source', DEFAULT_UTM.source);
+		}
+		if (!parsed.searchParams.has('utm_medium')) {
+			parsed.searchParams.set('utm_medium', DEFAULT_UTM.medium);
+		}
+		if (!parsed.searchParams.has('utm_campaign')) {
+			parsed.searchParams.set('utm_campaign', DEFAULT_UTM.campaign);
+		}
+		return parsed.toString();
+	} catch {
+		return url;
+	}
+}
+
+export function addTrackedCtaLink(item: BansosItem): BansosItem {
+	return {
+		...item,
+		ctaLink: appendDefaultUtmParams(item.ctaLink)
+	};
+}
+
+export const bansosList: BansosItem[] = (bansosData as BansosItem[]).map((item) => addTrackedCtaLink(item));
 
 export const latestBansos = (limit = 3) => bansosList.slice(-limit).reverse();
 

@@ -1,5 +1,9 @@
 import { browser } from '$app/environment';
-import { bansosList as initialBansosList, type BansosItem } from '$lib/data/bansos';
+import {
+	bansosList as initialBansosList,
+	addTrackedCtaLink,
+	type BansosItem
+} from '$lib/data/bansos';
 
 const GITHUB_RAW_URL =
 	'https://raw.githubusercontent.com/wauputr4/bansos/refs/heads/main/src/lib/data/bansos.json';
@@ -44,7 +48,9 @@ export async function fetchLatestBansos() {
 		const newData = await res.json();
 
 		if (Array.isArray(newData)) {
-			bansosState.data = newData;
+			bansosState.data = (newData as BansosItem[]).map((item) =>
+				addTrackedCtaLink(item as BansosItem)
+			);
 			bansosState.lastFetched = now;
 			// Only cache the timestamp to prevent data tampering (Self-XSS/Injection)
 			localStorage.setItem(
