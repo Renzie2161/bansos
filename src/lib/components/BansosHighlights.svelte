@@ -2,7 +2,19 @@
 	import { resolve } from '$app/paths';
 	import type { BansosItem } from '$lib/data/bansos';
 
-	let { title, icon, items }: { title: string; icon: string; items: BansosItem[] } = $props();
+	let {
+		title,
+		icon,
+		items,
+		popularityData = {},
+		discussionStats = {}
+	}: {
+		title: string;
+		icon: string;
+		items: BansosItem[];
+		popularityData?: Record<string, number>;
+		discussionStats?: Record<string, { comments: number; reactions: number }>;
+	} = $props();
 
 	let activeTooltip = $state<string | null>(null);
 </script>
@@ -25,6 +37,22 @@
 								<span class="tag-text">{tag}</span>
 							</span>
 						{/each}
+						<span class="highlight-tag views-tag">
+							<i class="fa-regular fa-eye"></i>
+							<span class="tag-text">{popularityData[item.id] || 0}</span>
+						</span>
+						{#if (discussionStats[item.id]?.comments || 0) > 0}
+							<span class="highlight-tag comments-tag">
+								<i class="fa-regular fa-comment"></i>
+								<span class="tag-text">{discussionStats[item.id].comments}</span>
+							</span>
+						{/if}
+						{#if (discussionStats[item.id]?.reactions || 0) > 0}
+							<span class="highlight-tag reactions-tag">
+								<i class="fa-regular fa-thumbs-up"></i>
+								<span class="tag-text">{discussionStats[item.id].reactions}</span>
+							</span>
+						{/if}
 					</div>
 					{#if item.status !== 'expired'}
 						{#if item.validity.type === 'forever'}
@@ -216,6 +244,18 @@
 		text-transform: uppercase;
 		max-width: 8rem;
 		line-height: 1;
+	}
+
+	.views-tag {
+		color: var(--color-accent) !important;
+	}
+
+	.comments-tag {
+		color: var(--color-success) !important;
+	}
+
+	.reactions-tag {
+		color: var(--color-warning) !important;
 	}
 
 	.tag-text {

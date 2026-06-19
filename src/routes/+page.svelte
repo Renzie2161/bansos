@@ -34,6 +34,8 @@
 	let githubStars: number | string = $state('-');
 	let githubPrs: number | string = $state('-');
 	let githubContributors: GithubContributor[] = $state([]);
+	let popularityData: Record<string, number> = $state({});
+	let discussionStats: Record<string, { comments: number; reactions: number }> = $state({});
 
 	function formatNumber(num: number | string) {
 		if (typeof num !== 'number') return num;
@@ -82,6 +84,24 @@
 				);
 			})
 			.catch(() => {});
+
+		fetch('/api/popularity')
+			.then((res) => (res.ok ? res.json() : {}))
+			.then((data) => {
+				popularityData = data;
+			})
+			.catch((err) => {
+				console.error('Failed to fetch popularity data:', err);
+			});
+
+		fetch('/api/discussion-stats')
+			.then((res) => (res.ok ? res.json() : {}))
+			.then((data) => {
+				discussionStats = data;
+			})
+			.catch((err) => {
+				console.error('Failed to fetch discussion stats:', err);
+			});
 	});
 </script>
 
@@ -213,10 +233,18 @@
 					items={featuredBansosList}
 					title="Rekomendasi Utama"
 					icon="fa-solid fa-fire"
+					{popularityData}
+					{discussionStats}
 				/>
 			{/if}
 			{#if latestBansosList.length > 0}
-				<BansosHighlights items={latestBansosList} title="Bansos Terbaru" icon="fa-solid fa-bolt" />
+				<BansosHighlights
+					items={latestBansosList}
+					title="Bansos Terbaru"
+					icon="fa-solid fa-bolt"
+					{popularityData}
+					{discussionStats}
+				/>
 			{/if}
 		</div>
 

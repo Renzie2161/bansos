@@ -2,7 +2,19 @@
 	import { resolve } from '$app/paths';
 	import { getProviderBySlug, slugifyProvider, type BansosItem } from '$lib/data/bansos';
 
-	let { item, compact = false }: { item: BansosItem; compact?: boolean } = $props();
+	let {
+		item,
+		compact = false,
+		views = 0,
+		comments = 0,
+		reactions = 0
+	}: {
+		item: BansosItem;
+		compact?: boolean;
+		views?: number;
+		comments?: number;
+		reactions?: number;
+	} = $props();
 	const status = $derived(item.status || 'unknown');
 
 	let showTooltip = $state(false);
@@ -22,6 +34,31 @@
 			{#each item.tags as tag (tag)}
 				<span class="tag-badge">{tag}</span>
 			{/each}
+			<span
+				class="tag-badge views-badge"
+				style="gap: 0.25rem; display: inline-flex; align-items: center; color: var(--color-accent); border-color: var(--color-accent-glow);"
+			>
+				<i class="fa-regular fa-eye" style="font-size: 0.7rem;"></i>
+				{views}
+			</span>
+			{#if comments > 0}
+				<span
+					class="tag-badge comments-badge"
+					style="gap: 0.25rem; display: inline-flex; align-items: center; color: var(--color-success); border-color: var(--color-success-glow);"
+				>
+					<i class="fa-regular fa-comment" style="font-size: 0.7rem;"></i>
+					{comments}
+				</span>
+			{/if}
+			{#if reactions > 0}
+				<span
+					class="tag-badge reactions-badge"
+					style="gap: 0.25rem; display: inline-flex; align-items: center; color: var(--color-warning); border-color: var(--color-warning-glow);"
+				>
+					<i class="fa-regular fa-thumbs-up" style="font-size: 0.7rem;"></i>
+					{reactions}
+				</span>
+			{/if}
 		</div>
 		<div class="status-container">
 			<span class="status-badge status-{status}">
