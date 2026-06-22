@@ -63,7 +63,7 @@ for (const bansos of newBansos) {
 				title: truncate(bansos.title, 256),
 				url: `https://bansos.dev/list/${bansos.id}`,
 				description: `${truncate(bansos.description, maxDescLen)}${ctaText}`,
-				color: 5814783,
+				color: 1096065,
 				author: {
 					name: truncate(`🙌 Kontributor: ${bansos.contributor?.name || 'Anonim'}`, 256),
 					url: bansos.contributor?.url || 'https://bansos.dev'
