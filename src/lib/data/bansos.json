@@ -276,9 +276,10 @@
 		},
 		"ctaLink": "https://www.aiclassasean.org/courses?utm_source=bansos.dev&utm_medium=referral&utm_campaign=bansos",
 		"tags": ["Course", "Diskon"],
-		"featured": true,
+		"featured": false,
 		"status": "active",
-		"provider": "AI Class ASEAN"
+		"provider": "AI Class ASEAN",
+		"featuredSince": null
 	},
 	{
 		"id": "dahono-labs-ai-api",
@@ -690,7 +691,7 @@
 		"ctaLink": "https://aerolink.lat/",
 		"tags": ["AI Tools", "API", "Cloud Services"],
 		"featured": false,
-		"status": "active",
+		"status": "expired",
 		"provider": "Aerolink"
 	},
 	{
@@ -1823,6 +1824,73 @@
 		"tags": ["AI Credits", "API", "Free Tier", "AI Tools"],
 		"featured": true,
 		"featuredSince": "2026-07-03",
+		"status": "active"
+	},
+	{
+		"id": "ai-livscene-free-models",
+		"title": "AI Livscene — 14 Model AI Premium Gratis dengan Quota 5.1",
+		"provider": "AI Livscene",
+		"providerWebsiteUrl": "https://ai.livscene.com",
+		"description": "Akses 14 model AI premium gratis dengan quota 5.1 di AI Livscene. Daftar pakai Discord atau GitHub, langsung generate tanpa ribet!",
+		"benefits": [
+			"Akses gratis ke 14 model AI premium: Claude Opus 4.6/4.7/4.8, Claude Sonnet 4.6, DeepSeek V4 Pro, Gemini 3.1 Pro, Gemini 3.5 Flash, GLM 5.2, GPT 5.4 Compact, GPT 5.5, Mimo v2.5, Mimo v2.5 Pro, Step 3.7 Flash, Step Router V1",
+			"Quota 5.1 untuk mencoba semua model",
+			"Daftar cepat via Discord atau GitHub",
+			"Generate dan langsung coba tanpa setup rumit"
+		],
+		"validity": {
+			"type": "uncertain",
+			"description": "Quota dan akses free model mengikuti kebijakan AI Livscene"
+		},
+		"requirements": [
+			"Buka ai.livscene.com",
+			"Daftar akun via Discord atau GitHub",
+			"Generate dan langsung coba model yang tersedia"
+		],
+		"tips": "Hasil referral dibagikan gratis di Discord bansos.dev — gabung dan cek #referral-sharing. Quota 5.1 cukup lega buat eksplorasi berbagai model!",
+		"source": "https://ai.livscene.com",
+		"publishedAt": "2026-07-03",
+		"contributor": {
+			"name": "wauputra",
+			"url": "https://wau.my.id/"
+		},
+		"ctaLink": "https://ai.livscene.com/sign-up?aff=m3Vt",
+		"tags": ["AI Credits", "API", "Free Tier", "AI Tools", "No Credit Card"],
+		"featured": true,
+		"featuredSince": "2026-07-03",
+		"status": "active"
+	},
+	{
+		"id": "aerolink-starter-free-trial",
+		"title": "Aerolink Starter Free Trial",
+		"provider": "Aerolink",
+		"description": "Dapatkan akses gratis ke berbagai model AI melalui satu API gateway — cukup daftar dan nikmati kredit free trial US$140 tanpa biaya awal.",
+		"benefits": [
+			"Free Trial selama 2 minggu",
+			"Kredit penggunaan AI senilai US$140",
+			"Batas penggunaan US$10 setiap 5 jam",
+			"Batas penggunaan US$70 per minggu",
+			"Akses ke berbagai model AI melalui satu platform"
+		],
+		"validity": {
+			"type": "uncertain",
+			"description": "Berlaku selama program Starter Free Trial masih disediakan oleh Aerolink."
+		},
+		"requirements": [
+			"Daftarkan akun Aerolink baru",
+			"Aktifkan paket Starter Free Trial",
+			"Patuhi syarat dan ketentuan resmi Aerolink"
+		],
+		"tips": "Gunakan akun yang belum pernah terdaftar agar memenuhi syarat sebagai pengguna baru.",
+		"source": "https://aerolink.lat/",
+		"publishedAt": "2026-07-05",
+		"contributor": {
+			"name": "Syafi'i Fahreza",
+			"url": "https://bansos.dev"
+		},
+		"ctaLink": "https://aerolink.lat/register?ref=T5-QB9W",
+		"tags": ["AI", "API", "Developer", "Free Trial", "Credits"],
+		"featured": false,
 		"status": "active"
 	}
 ]
