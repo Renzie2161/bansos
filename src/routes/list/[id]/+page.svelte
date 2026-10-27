@@ -6,6 +6,7 @@
 	import { locale } from 'svelte-i18n';
 	import FloatingEmoji from '$lib/components/FloatingEmoji.svelte';
 	import BansosCard from '$lib/components/BansosCard.svelte';
+	import ListingComments from '$lib/components/ListingComments.svelte';
 	import { t } from '$lib/i18n';
 	import {
 		getCommitContributorsForItem,
@@ -15,9 +16,7 @@
 		getItemSource,
 		getLatestCommitForItem,
 		getProviderBySlug,
-		recommendedBansosFor,
-		slugifyProvider,
-		bansosList
+		slugifyProvider
 	} from '$lib/data/bansos';
 	import {
 		getCachedFavicon,
@@ -32,13 +31,14 @@
 
 	let giscusContainer: HTMLDivElement | null = $state(null);
 
-	let { data } = $props();
+	let { data, form } = $props();
 
 	let popularityData: Record<string, number> = $state({});
-	const item = $derived(bansosList.find((i) => i.id === data.id) || data.item);
+	const item = $derived(data.item);
 	const views = $derived(item ? popularityData[item.id] || 0 : 0);
 
-	let commentCount = $state(0);
+	let giscusCommentCount = $state(0);
+	const commentCount = $derived(data.commentsEnabled ? data.commentCount : giscusCommentCount);
 
 	onMount(async () => {
 		try {
@@ -61,7 +61,7 @@
 
 			const giscusData = event.data.giscus;
 			if (giscusData.discussion && giscusData.discussion.totalCommentCount !== undefined) {
-				commentCount = giscusData.discussion.totalCommentCount;
+				giscusCommentCount = giscusData.discussion.totalCommentCount;
 			}
 		};
 
@@ -144,6 +144,7 @@
 	);
 	const seoDesc = $derived(item ? detailT('seoDesc', { title: item.title }) : '');
 	const pageUrl = $derived(item ? `https://bansos.dev/list/${item.id}/` : '');
+	const ogImage = $derived(data.isLegacy ? `${pageUrl}og.png` : 'https://bansos.dev/og.png');
 
 	// ===== GEO: JSON-LD structured data — auto-generated from entry data =====
 	// Maps each entry to the most appropriate Schema.org type for AI crawling.
@@ -247,13 +248,18 @@
 		schemaData ? JSON.stringify(schemaData).replace(/</g, '\\u003c') : ''
 	);
 
-	const recommendedBansos = $derived.by(() => {
-		if (!item) return [];
-		return recommendedBansosFor(item, bansosList, 3);
-	});
+	const recommendedBansos = $derived(data.recommended);
 
 	$effect(() => {
-		if (browser && item && giscusContainer && GISCUS_REPO && GISCUS_REPO_ID && GISCUS_CATEGORY_ID) {
+		if (
+			!data.commentsEnabled &&
+			browser &&
+			item &&
+			giscusContainer &&
+			GISCUS_REPO &&
+			GISCUS_REPO_ID &&
+			GISCUS_CATEGORY_ID
+		) {
 			// eslint-disable-next-line svelte/no-dom-manipulating
 			giscusContainer.innerHTML = '';
 			const script = document.createElement('script');
@@ -292,13 +298,13 @@
 		<meta property="og:url" content={pageUrl} />
 		<meta property="og:title" content={seoTitle} />
 		<meta property="og:description" content={seoDesc} />
-		<meta property="og:image" content="{pageUrl}og.png" />
+		<meta property="og:image" content={ogImage} />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:url" content={pageUrl} />
 		<meta name="twitter:title" content={seoTitle} />
 		<meta name="twitter:description" content={seoDesc} />
-		<meta name="twitter:image" content="{pageUrl}og.png" />
+		<meta name="twitter:image" content={ogImage} />
 
 		{#if schemaJson}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -513,7 +519,16 @@
 				</article>
 
 				<!-- Giscus Comments Section -->
-				{#if GISCUS_REPO && GISCUS_REPO_ID && GISCUS_CATEGORY_ID}
+				{#if data.commentsEnabled}
+					<ListingComments comments={data.comments} viewer={data.viewer} message={form?.message} />
+					{#if data.isLegacy}<p>
+							Komentar lama tetap tersimpan di <a
+								href="https://github.com/wauputr4/bansos/discussions"
+								target="_blank"
+								rel="noopener noreferrer">GitHub Discussions</a
+							>.
+						</p>{/if}
+				{:else if GISCUS_REPO && GISCUS_REPO_ID && GISCUS_CATEGORY_ID}
 					<div class="glass-card comments-card">
 						<h2
 							style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);"
@@ -568,6 +583,16 @@
 											<strong>{originalContributor.displayName}</strong>
 										</a>
 									</div>
+								{:else if item.contributor}
+									<div class="original-contributor">
+										<span>{detailT('contributedBy')}</span>
+										<a
+											href={item.contributor.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="submitted-person"><strong>{item.contributor.name}</strong></a
+										>
+									</div>
 								{/if}
 								{#if commitContributors.length > 0}
 									<div
@@ -608,15 +633,15 @@
 										</time>
 									</div>
 								{/if}
-								<a
-									href={markdownSourceUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="markdown-source-link"
-								>
-									<i class="fa-solid fa-file-code" aria-hidden="true"></i>
-									{detailT('viewMarkdownSource')}
-								</a>
+								{#if data.isLegacy}<a
+										href={markdownSourceUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="markdown-source-link"
+									>
+										<i class="fa-solid fa-file-code" aria-hidden="true"></i>
+										{detailT('viewMarkdownSource')}
+									</a>{/if}
 							</div>
 						{/if}
 					</div>

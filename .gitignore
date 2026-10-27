@@ -5,7 +5,12 @@ node_modules
 .vercel
 .netlify
 .wrangler
+/wrangler.jsonc
+/wrangler.staging.jsonc
+/wrangler.production-migrations.jsonc
+/.local-private/
 /.svelte-kit
+/.svelte-kit-dev
 /build
 
 # OS
